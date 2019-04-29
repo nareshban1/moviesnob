@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Login"
+    android:gravity="center">
+
+    <TextView
+        android:textAlignment="center"
+        android:id="@+id/log_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log In" />
+
+    <EditText
+        android:textAlignment=""
+        android:id="@+id/log_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Email"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/log_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/log_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log in" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:id="@+id/log_reg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No account? Sign Up here" />
+</LinearLayout>

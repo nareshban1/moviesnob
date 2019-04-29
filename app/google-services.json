@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "598390166828",
+    "firebase_url": "https://moviesnob-802ae.firebaseio.com",
+    "project_id": "moviesnob-802ae",
+    "storage_bucket": "moviesnob-802ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598390166828:android:571ef7958ad76c44",
+        "android_client_info": {
+          "package_name": "com.example.moviesnob"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598390166828-al1613ldkqdcvpu7g3jcd37ijipk5a5t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moviesnob",
+            "certificate_hash": "7b9b2595776e609513f02e85234dbd55d40fa71d"
+          }
+        },
+        {
+          "client_id": "598390166828-kiabk5id731k3aanqoh7t8nep5q7crai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9LACU8w3oaqh3bawwf1rJc2Jlx5xrWMA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598390166828-kiabk5id731k3aanqoh7t8nep5q7crai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
