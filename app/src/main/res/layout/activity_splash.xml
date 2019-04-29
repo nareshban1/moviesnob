@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Splash"
-    android:background="#00008B">
+    android:background="#0C0032">
 
 
     <LinearLayout
@@ -19,18 +19,8 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/logo" />
+            android:src="@drawable/snoblogo" />
 
-        <TextView
-            android:id="@+id/appname"
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Movie Snob"
-            android:textColor="#8A2BE2"
-            android:textSize="25sp"
-            android:textStyle="bold" />
 
     </LinearLayout>
 

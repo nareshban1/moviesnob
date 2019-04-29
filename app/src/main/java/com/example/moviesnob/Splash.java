@@ -16,10 +16,8 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        name= (TextView)findViewById(R.id.appname);
         logo = (ImageView) findViewById(R.id.logo);
         Animation myanim = AnimationUtils.loadAnimation(this,R.anim.transition);
-        name.startAnimation(myanim);
         logo.startAnimation(myanim);
         final Intent i = new Intent(this,MainActivity.class);
         Thread timer = new Thread(){
