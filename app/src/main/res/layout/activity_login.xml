@@ -4,28 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/side_nav_bar"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Login"
-    android:gravity="center">
+    tools:context=".Login">
 
     <TextView
-        android:textAlignment="center"
         android:id="@+id/log_view"
-        android:layout_width="match_parent"
+        android:layout_width="239dp"
         android:layout_height="wrap_content"
-        android:text="Log In" />
+        android:fontFamily="@font/audiowide"
+        android:text="Log In"
+        android:textAlignment="center"
+        android:textSize="25dp" />
 
     <EditText
         android:id="@+id/log_email"
-        android:layout_width="match_parent"
+        android:layout_width="299dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Enter Email"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/log_pass"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Enter Password"
@@ -33,15 +37,16 @@
 
     <Button
         android:id="@+id/log_btn"
-        android:layout_width="match_parent"
+        android:layout_width="191dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Log in" />
 
     <TextView
-        android:layout_marginTop="20dp"
-        android:textAlignment="center"
         android:id="@+id/log_reg"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="No account? Sign Up here" />
+        android:layout_marginTop="20dp"
+        android:text="No account? Sign Up here"
+        android:textAlignment="center" />
 </LinearLayout>
