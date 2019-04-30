@@ -20,14 +20,24 @@
         android:textStyle="bold" />
         android:textAlignment="center" />
 
-    <!-- <EditText
+
+    <EditText
+        android:id="@+id/reg_fname"
+        android:layout_width="341dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="First name"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <EditText
         android:id="@+id/reg_lname"
         android:layout_width="341dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Last name"
         android:inputType="textPersonName"
-        android:textAlignment="center" />-->
+        android:textAlignment="center" />
 
     <EditText
         android:id="@+id/reg_user"

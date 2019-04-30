@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
     private EditText email;
-    private EditText uname;
+    private EditText uname,fname,lname;
     private EditText pass;
     private Button register;
     private TextView rlogin;
@@ -35,6 +35,8 @@ public class Register extends AppCompatActivity {
         email = findViewById(R.id.reg_email);
         pass = findViewById(R.id.reg_pass);
         uname = findViewById(R.id.reg_user);
+        fname = findViewById(R.id.reg_fname);
+        lname = findViewById(R.id.reg_lname);
         register = findViewById(R.id.reg_btn);
         rlogin = findViewById(R.id.log_reg);
 
@@ -44,7 +46,7 @@ public class Register extends AppCompatActivity {
         rlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Register.class));
+                startActivity(new Intent(getApplicationContext(), Login.class));
             }
         });
 
@@ -56,6 +58,8 @@ public class Register extends AppCompatActivity {
                 final String mEmail=email.getText().toString().trim();
                 String mPassword= pass.getText().toString().trim();
                 final String mUsername= uname.getText().toString().trim();
+                final String mFname= fname.getText().toString().trim();
+                final String mLname= lname.getText().toString().trim();
 
                 if(TextUtils.isEmpty(mEmail)){
                     email.setError("Required");
@@ -76,7 +80,7 @@ public class Register extends AppCompatActivity {
                         if(task.isSuccessful()){
 
 
-                            User user= new User(mUsername, mEmail);
+                            User user= new User(mUsername, mEmail, mFname,mLname);
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
