@@ -1,16 +1,15 @@
 package com.example.moviesnob.model;
 
 public class User {
-    public String name, email,fname,lname;
+    public String name, email;
 
     public  User(){
 
     }
 
-    public User (String name, String email,String fname,String lname){
+    public User (String name, String email){
         this.email=email;
         this.name=name;
-        this.fname=fname;
-        this.lname=lname;
+
     }
 }
