@@ -25,7 +25,7 @@ public class Register extends AppCompatActivity {
     private EditText pass;
     private Button register;
     private TextView rlogin;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth Firebasea;
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,8 @@ public class Register extends AppCompatActivity {
         register = findViewById(R.id.reg_btn);
         rlogin = findViewById(R.id.log_reg);
 
-        mAuth = FirebaseAuth.getInstance();
 
+        Firebasea = FirebaseAuth.getInstance();
 
         rlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +74,7 @@ public class Register extends AppCompatActivity {
                 progressDialog.setMessage("Processing...");
                 progressDialog.show();
 
-                mAuth.createUserWithEmailAndPassword(mEmail,mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                Firebasea.createUserWithEmailAndPassword(mEmail,mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){

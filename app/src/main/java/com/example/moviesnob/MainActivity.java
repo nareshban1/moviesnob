@@ -1,8 +1,8 @@
 package com.example.moviesnob;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,11 +13,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    private FirebaseAuth mAuth;
+    TextView Uemail;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +44,44 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        TextView login=  findViewById(R.id.nav_log);
-
-        //yo code le kaam garena error dincha
-        /*login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Login.class));
-            }
-        });*/
 
         NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+//        navHeaderView= navigationView.inflateHeaderView(R.layout.nav_header_main);
+        Uemail =  headerView.findViewById(R.id.Temail);
+
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser mUser = mAuth.getCurrentUser();
+        TextView login = headerView.findViewById(R.id.nav_log);
 
 
 
 
+        if(mUser != null) {
+            email = mUser.getEmail();
+            login.setText("Log Out");
+            login = headerView.findViewById(R.id.nav_log);
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                }
+            });
+
+        }
+        else{
+            email = "User not logged in";
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), Login.class));
+                }
+            });
+        }
+        Uemail.setText(email);
 
 
 
@@ -63,6 +90,9 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -94,9 +124,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_fav) {
 
         }
-        else if (id == R.id.nav_log) {
-            startActivity(new Intent(getApplicationContext(), Login.class));
-        }
+
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

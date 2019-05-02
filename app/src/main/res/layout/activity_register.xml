@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/side_nav_bar"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Login">
+    tools:context=".Login"
+    android:background="@drawable/gradient">
 
     <TextView
         android:id="@+id/reg_view"
+        android:layout_marginBottom="30dp"
         android:layout_width="233dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/audiowide"
