@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     TextView Uemail;
+    private static long back_pressed;
     String email;
 
     @Override
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
                     mAuth.signOut();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), Login.class));
                     finish();
 
                 }
@@ -101,9 +104,15 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (back_pressed + 2000 > System.currentTimeMillis()) super.onBackPressed();
+            else Toast.makeText(getBaseContext(), "Press once again to exit!", Toast.LENGTH_SHORT).show();
+            back_pressed = System.currentTimeMillis();
+
         }
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
