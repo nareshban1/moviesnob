@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
-//        navHeaderView= navigationView.inflateHeaderView(R.layout.nav_header_main);
         Uemail =  headerView.findViewById(R.id.Temail);
 
         mAuth = FirebaseAuth.getInstance();
@@ -68,7 +67,9 @@ public class MainActivity extends AppCompatActivity
             login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     mAuth.signOut();
+                    Toast.makeText(getApplicationContext(),"Logged out",Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getApplicationContext(), Login.class));
                     finish();
 
@@ -86,12 +87,6 @@ public class MainActivity extends AppCompatActivity
             });
         }
         Uemail.setText(email);
-
-
-
-
-
-
 
     }
 
