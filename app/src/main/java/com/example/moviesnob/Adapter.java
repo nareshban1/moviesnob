@@ -22,14 +22,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     RequestOptions options ;
 
 
-    public Adapter (Context mContext, List<Movie> lmovie){
+    public Adapter (MainActivity mContext, List<Movie> lmovie){
 
         this.mContext = mContext;
         this.lmovie= lmovie;
         options = new RequestOptions()
                 .centerCrop()
-                .placeholder(R.drawable.iron)
-                .error(R.drawable.iron);
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.logo);
     }
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {

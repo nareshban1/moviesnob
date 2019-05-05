@@ -3,7 +3,9 @@ package com.example.moviesnob;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     private static long back_pressed;
     String email;
     List<Movie> lmovie=new ArrayList<>();
-    private String URL_JSON = "https://gist.githubusercontent.com/nareshban1/148193d181cf87ffcdf1ccf18a5329c2/raw/86c6a5cf3b5bbaae19563d7b2c18fe86f7388a23/movie.json";
+    private String URL_JSON = "https://gist.githubusercontent.com/nareshban1/eb5ab9d26be038d586aa2d7e5a39f1ce/raw";
     private JsonArrayRequest ArrayRequest ;
     private RequestQueue requestQueue;
     RecyclerView mrv;
@@ -111,38 +113,14 @@ public class MainActivity extends AppCompatActivity
         }
         Uemail.setText(email);
 
-        /*
-        //listing movie in content main
-
-
-
-
-
-        lmovie.add(new Movie("Avengers",R.drawable.avenger));
-        lmovie.add(new Movie("Avengers",R.drawable.widow));
-        lmovie.add(new Movie("Avengers",R.drawable.cap));
-        lmovie.add(new Movie("Avengers",R.drawable.thor));
-        lmovie.add(new Movie("Avengers",R.drawable.iron));
-        lmovie.add(new Movie("Avengers",R.drawable.scar));
-        lmovie.add(new Movie("Avengers",R.drawable.avenger));*/
-
-
-
-
         jsoncall();
         mrv= findViewById(R.id.recyclerView);
-
-//
-
-
-
-
-
-
 
 
     }
 
+
+    // maile ni ramrari bhujheko ta chaina tara yo method le json ko url bata data extract garcha ani movie class ma pathaucha.
     public void jsoncall() {
 
 
@@ -204,7 +182,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-
+    //method for press twice to exit
     @Override
     public void onBackPressed() {
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
@@ -229,19 +207,24 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    //menu bar
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        Fragment fragment = null;
+
+
         int id = item.getItemId();
 
         if (id == R.id.nav_discover) {
-            //startActivity(new Intent(getApplicationContext(),Discover.class));
+
 
         } else if (id == R.id.nav_fav) {
 
         }
+
+
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
