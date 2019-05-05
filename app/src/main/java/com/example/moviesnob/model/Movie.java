@@ -25,7 +25,7 @@ public class Movie {
     }
 
     public String getImage_url() {
-        return image_url;
+        return "https://image.tmdb.org/t/p/w500" + image_url;
     }
 
     public void setImage_url(String image_url) {

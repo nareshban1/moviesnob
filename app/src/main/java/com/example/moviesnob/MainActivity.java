@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
     private static long back_pressed;
     String email;
     List<Movie> lmovie=new ArrayList<>();
-    private String URL_JSON = "https://gist.githubusercontent.com/nareshban1/5921aa304771b596b9d238a7273421a8/raw/908a52b010de3a182fbfa6172956bf577c396e50/movies.json";
+    private String URL_JSON = "https://gist.githubusercontent.com/nareshban1/148193d181cf87ffcdf1ccf18a5329c2/raw/86c6a5cf3b5bbaae19563d7b2c18fe86f7388a23/movie.json";
     private JsonArrayRequest ArrayRequest ;
     private RequestQueue requestQueue;
     RecyclerView mrv;
@@ -162,8 +162,8 @@ public class MainActivity extends AppCompatActivity
                         jsonObject = response.getJSONObject(i);
                         Movie movie = new Movie();
 
-                        movie.setTitle(jsonObject.getString("name"));
-                        movie.setImage_url(jsonObject.getString("img"));
+                        movie.setTitle(jsonObject.getString("title"));
+                        movie.setImage_url(jsonObject.getString("poster_path"));
 
                         //Toast.makeText(MainActivity.this,anime.toString(),Toast.LENGTH_SHORT).show();
                         lmovie.add(movie);
@@ -174,8 +174,8 @@ public class MainActivity extends AppCompatActivity
                 }
 
 
-                Toast.makeText(MainActivity.this,"Size of Liste "+String.valueOf(lmovie.size()),Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this,lmovie.get(1).toString(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this,"Size of Lists "+String.valueOf(lmovie.size()),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this,lmovie.get(1).toString(),Toast.LENGTH_SHORT).show();
 
                 setAdapter(lmovie);
             }
