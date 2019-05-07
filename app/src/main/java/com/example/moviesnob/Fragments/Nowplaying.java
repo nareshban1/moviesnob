@@ -89,6 +89,9 @@ public class Nowplaying extends Fragment {
                             Movie movie = new Movie();
                             movie.setTitle(jsonObject.getString("title"));
                             movie.setImage_url(jsonObject.getString("poster_path"));
+                            movie.setRating(jsonObject.getString("vote_average"));
+                            movie.setDescription(jsonObject.getString("overview"));
+                            movie.setBack_url(jsonObject.getString("backdrop_path"));
                             lmovie.add(movie);
                         }
                     } catch (JSONException e) {
