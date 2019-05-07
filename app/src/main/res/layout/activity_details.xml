@@ -53,7 +53,7 @@
 
         <ImageView
             android:id="@+id/movieimg"
-            android:layout_width="137dp"
+            android:layout_width="128dp"
             android:layout_height="200dp"
             android:layout_marginLeft="15dp"
             android:background="@drawable/sss" />
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="Rating  :  " />
+                    android:text="Rating:  " />
 
                 <TextView
                     android:id="@+id/rating"
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="Release Date  :  " />
+                    android:text="Release Date:" />
 
                 <TextView
                     android:id="@+id/releasedate"
