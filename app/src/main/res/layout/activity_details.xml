@@ -40,16 +40,18 @@
             android:id="@+id/ratingLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Rating :" />
+            android:gravity="right"
+            android:text="Rating  :" />
 
         <TextView
             android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left"
             android:text="0.0" />
     </LinearLayout>
 
@@ -73,8 +75,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="30dp"
-        android:text="     Movie Description :"
+        android:text="Movie Description :"
         android:textStyle="bold" />
 
 
