@@ -52,6 +52,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
                 i.putExtra("rating",lmovie.get(viewHolder.getAdapterPosition()).getRating());
                 i.putExtra("img",lmovie.get(viewHolder.getAdapterPosition()).getImage_url());
                 i.putExtra("imgb",lmovie.get(viewHolder.getAdapterPosition()).getBack_url());
+                i.putExtra("release",lmovie.get(viewHolder.getAdapterPosition()).getRelease());
 
                 mContext.startActivity(i);
 

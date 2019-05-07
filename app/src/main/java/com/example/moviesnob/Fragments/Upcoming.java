@@ -88,11 +88,13 @@ public class Upcoming extends Fragment {
 
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             Movie movie = new Movie();
+                            movie.setId(jsonObject.getInt("id"));
                             movie.setTitle(jsonObject.getString("title"));
                             movie.setImage_url(jsonObject.getString("poster_path"));
                             movie.setRating(jsonObject.getString("vote_average"));
                             movie.setDescription(jsonObject.getString("overview"));
                             movie.setBack_url(jsonObject.getString("backdrop_path"));
+                            movie.setRelease(jsonObject.getString("release_date"));
                             lmovie.add(movie);
                         }
                     } catch (JSONException e) {
