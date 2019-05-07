@@ -48,7 +48,7 @@ public class Popular extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v =  inflater.inflate(R.layout.fragment_popular, container, false);
+        v =  inflater.inflate(R.layout.content_main, container, false);
         getActivity().setTitle("Popular");
 
         mrv = (RecyclerView) v.findViewById(R.id.recyclerViewpop);
