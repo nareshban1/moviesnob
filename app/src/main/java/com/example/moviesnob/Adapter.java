@@ -22,7 +22,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     RequestOptions options ;
 
 
-    public Adapter (MainActivity mContext, List<Movie> lmovie){
+    public Adapter (Context mContext, List<Movie> lmovie){
 
         this.mContext = mContext;
         this.lmovie= lmovie;

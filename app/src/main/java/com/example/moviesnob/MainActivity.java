@@ -1,39 +1,29 @@
 package com.example.moviesnob;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.moviesnob.model.Movie;
+import com.example.moviesnob.Fragments.HomeFragment;
+import com.example.moviesnob.Fragments.Nowplaying;
+import com.example.moviesnob.Fragments.Popular;
+import com.example.moviesnob.Fragments.Upcoming;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
@@ -41,14 +31,9 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     TextView Uemail;
-    TextView title;
     private static long back_pressed;
     String email;
-    List<Movie> lmovie=new ArrayList<>();
-    private String URL_JSON = "https://gist.githubusercontent.com/nareshban1/eb5ab9d26be038d586aa2d7e5a39f1ce/raw";
-    private JsonArrayRequest ArrayRequest ;
-    private RequestQueue requestQueue;
-    RecyclerView mrv;
+
 
 
     @Override
@@ -59,6 +44,8 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        NavigationView navigationView =  findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -69,14 +56,15 @@ public class MainActivity extends AppCompatActivity
 
 
 
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.main, new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_main);
+        }
 
 
-
-
-        NavigationView navigationView =  findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         Uemail =  headerView.findViewById(R.id.Temail);
+
 
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser mUser = mAuth.getCurrentUser();
@@ -113,73 +101,23 @@ public class MainActivity extends AppCompatActivity
         }
         Uemail.setText(email);
 
-        jsoncall();
-        mrv= findViewById(R.id.recyclerView);
+       // mrv= findViewById(R.id.recyclerView);
+
+        //jsoncall();
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.main, new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_main);
+        }
+
+
+
+
 
 
     }
 
 
-    // maile ni ramrari bhujheko ta chaina tara yo method le json ko url bata data extract garcha ani movie class ma pathaucha.
-    public void jsoncall() {
-
-
-        ArrayRequest = new JsonArrayRequest(URL_JSON, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-                JSONObject jsonObject = null;
-
-
-                for (int i = 0 ; i<response.length();i++) {
-
-                    //Toast.makeText(getApplicationContext(),String.valueOf(i),Toast.LENGTH_SHORT).show();
-
-                    try {
-
-                        jsonObject = response.getJSONObject(i);
-                        Movie movie = new Movie();
-
-                        movie.setTitle(jsonObject.getString("title"));
-                        movie.setImage_url(jsonObject.getString("poster_path"));
-
-                        //Toast.makeText(MainActivity.this,anime.toString(),Toast.LENGTH_SHORT).show();
-                        lmovie.add(movie);
-                    }
-                    catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-
-                //Toast.makeText(MainActivity.this,"Size of Lists "+String.valueOf(lmovie.size()),Toast.LENGTH_SHORT).show();
-                //Toast.makeText(MainActivity.this,lmovie.get(1).toString(),Toast.LENGTH_SHORT).show();
-
-                setAdapter(lmovie);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-
-        requestQueue = Volley.newRequestQueue(MainActivity.this);
-        requestQueue.add(ArrayRequest);
-    }
-
-
-    public void setAdapter (List<Movie> lmovie) {
-
-        Adapter myAdapter = new Adapter(this, lmovie);
-        mrv.setLayoutManager( new GridLayoutManager(this, 3));
-        mrv.setAdapter(myAdapter);
-
-
-
-
-    }
 
 
     //method for press twice to exit
@@ -207,24 +145,45 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+
+
+
     //menu bar
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         Fragment fragment = null;
-
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_discover) {
+        if(id == R.id.nav_main){
+            fragment = new HomeFragment();
+        }
 
+        //reloads the app
+        else if(id == R.id.nav_Popular){
+            fragment = new Popular();
 
-        } else if (id == R.id.nav_fav) {
+        }
+
+        else if(id == R.id.nav_Now){
+            fragment = new Nowplaying();
+
+        }
+        else if(id == R.id.nav_Upcoming){
+            fragment = new Upcoming();
 
         }
 
 
+        if(fragment!=null){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.main, fragment);
+            ft.commit();
+
+        }
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

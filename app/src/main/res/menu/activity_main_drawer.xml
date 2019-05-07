@@ -5,13 +5,22 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_discover"
+            android:id="@+id/nav_main"
 
-            android:title="Discover" />
+            android:title="Home" />
         <item
-            android:id="@+id/nav_fav"
+            android:id="@+id/nav_Popular"
 
-            android:title="Favouites" />
+            android:title="Popular" />
+
+        <item
+            android:id="@+id/nav_Now"
+
+            android:title="Now Playing" />
+        <item
+            android:id="@+id/nav_Upcoming"
+
+            android:title="Upcoming" />
 
 
     </group>
