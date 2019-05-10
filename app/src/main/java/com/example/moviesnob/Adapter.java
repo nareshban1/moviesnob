@@ -46,6 +46,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             public void onClick(View v) {
 
                 Intent i = new Intent(mContext, Details.class);
+                ;
                 // sending data process
                 i.putExtra("movie_name",lmovie.get(viewHolder.getAdapterPosition()).getTitle());
                 i.putExtra("description",lmovie.get(viewHolder.getAdapterPosition()).getDescription());
@@ -54,7 +55,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
                 i.putExtra("imgb",lmovie.get(viewHolder.getAdapterPosition()).getBack_url());
                 i.putExtra("release",lmovie.get(viewHolder.getAdapterPosition()).getRelease());
 
+                i.putExtra("id",lmovie.get(viewHolder.getAdapterPosition()).getId());
+
                 mContext.startActivity(i);
+
+
 
             }
         });

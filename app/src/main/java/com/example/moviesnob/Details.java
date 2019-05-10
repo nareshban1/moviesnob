@@ -1,23 +1,28 @@
 package com.example.moviesnob;
 
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.transition.Transition;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class Details extends AppCompatActivity {
+    Button comment;
+    private FirebaseAuth mAuth;
+
+    int id;
+    private String ids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +31,15 @@ public class Details extends AppCompatActivity {
 
 
 
-        String name  = getIntent().getExtras().getString("movie_name");
+        final String name  = getIntent().getExtras().getString("movie_name");
         String description = getIntent().getExtras().getString("description");
         String rating = getIntent().getExtras().getString("rating") ;
         String image_url = getIntent().getExtras().getString("imgb") ;
         String image = getIntent().getExtras().getString("img") ;
         String rel = getIntent().getExtras().getString("release") ;
+        id = getIntent().getExtras().getInt("id") ;
+
+
 
 
 
@@ -45,7 +53,9 @@ public class Details extends AppCompatActivity {
         TextView rele = findViewById(R.id.releasedate);
         Toolbar tool= findViewById(R.id.tool);
         setSupportActionBar(tool);
+        ids= Integer.toString(id);
         getSupportActionBar().setTitle(name);
+
 
 
         // setting values to each view
@@ -63,9 +73,42 @@ public class Details extends AppCompatActivity {
         Glide.with(this).load(image).apply(requestOptions).into(imgs);
 
 
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser mUser = mAuth.getCurrentUser();
+
+        final Intent intent = new Intent(this, Comment.class);
+        comment = (Button) findViewById(R.id.Comm);
+
+
+
+
+        if(mUser != null) {
+            comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    intent.putExtra("movieid", ids);
+                    intent.putExtra("moviename", name);
+
+                    startActivity(intent);
+                }
+            });
+        }
+        else{
+
+            comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"Log In and Try Again",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(), Login.class));
+                }
+            });
+        }
 
 
 
 
     }
+
+
 }

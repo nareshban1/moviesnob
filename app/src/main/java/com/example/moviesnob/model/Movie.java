@@ -7,7 +7,7 @@ public class Movie {
     private String back_url;
     private String description;
     private String rating;
-    int id;
+    private int id;
     private String release;
 
     public Movie(){

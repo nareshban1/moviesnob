@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -102,7 +103,7 @@ public class Nowplaying extends Fragment {
 
                     setAdapter(lmovie);
 
-                    //Toast.makeText(MainActivity.this,"Size of Lists "+String.valueOf(lmovie.size()),Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext() ,"Movies Loaded "+String.valueOf(lmovie.size()),Toast.LENGTH_SHORT).show();
                     //Toast.makeText(MainActivity.this,lmovie.get(1).toString(),Toast.LENGTH_SHORT).show();
 
                 }
@@ -120,7 +121,7 @@ public class Nowplaying extends Fragment {
         }
 
 
-//        requestQueue.add(request);
+
     }
 
 

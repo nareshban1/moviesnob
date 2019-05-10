@@ -30,9 +30,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
-    TextView Uemail;
+    TextView Uemail, uname;
+
     private static long back_pressed;
-    String email;
+    String email,username;
 
 
 
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity
 
         View headerView = navigationView.getHeaderView(0);
         Uemail =  headerView.findViewById(R.id.Temail);
+        uname = headerView.findViewById(R.id.viewuser);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity
 
         if(mUser != null) {
             email = mUser.getEmail();
+            username= mUser.getDisplayName();
             login.setText("Log Out");
             login = headerView.findViewById(R.id.nav_log);
             login.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity
 
                     mAuth.signOut();
                     Toast.makeText(getApplicationContext(),"Logged out",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getApplicationContext(), Login.class));
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
 
                 }
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity
             });
         }
         Uemail.setText(email);
+        uname.setText(username);
 
        // mrv= findViewById(R.id.recyclerView);
 
@@ -173,6 +177,10 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id == R.id.nav_Upcoming){
             fragment = new Upcoming();
+
+        }
+        else if(id == R.id.nav_Discussion){
+            //startActivity();
 
         }
 

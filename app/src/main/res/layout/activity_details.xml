@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mView"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:orientation="vertical"
@@ -20,11 +20,11 @@
             android:id="@+id/tool"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:elevation="0dp"
             android:minHeight="177dp"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextColor="#D81B60"/>
+            app:titleTextColor="#f4a950" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -144,7 +144,18 @@
                 android:layout_marginLeft="15dp"
                 android:text="Movie Overview" />
 
+            <Button
+                android:id="@+id/Comm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Comments"
+                android:textColor="#f4a950" />
+
+
+
         </LinearLayout>
+
 
 
 

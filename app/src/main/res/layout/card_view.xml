@@ -29,8 +29,10 @@
             android:id="@+id/mtitle"
             android:layout_width="match_parent"
             android:layout_height="37dp"
+            android:background="#161b21"
             android:text="Movie Title"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="#f4a950" />
 
 
     </LinearLayout>

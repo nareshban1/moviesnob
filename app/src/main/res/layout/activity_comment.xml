@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#161b21"
+    android:orientation="vertical"
+    tools:context=".Comment">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tool"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimaryDark"
+            android:elevation="0dp"
+            android:minHeight="177dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextColor="#f4a950" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#161b21"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:gravity="center|left"
+            android:paddingLeft="5dp"
+            android:text="Leave a comment"
+            android:textColor="#f4a950" />
+
+        <EditText
+            android:id="@+id/comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Comment"
+            android:inputType="textPersonName"
+            android:textColor="#f4a950"
+            android:textColorHint="#f4a950"
+            android:textColorLink="#f4a950" />
+
+        <Button
+            android:id="@+id/savebtn"
+            android:layout_width="99dp"
+            android:layout_height="32dp"
+            android:text="Comment"
+            android:textAllCaps="false"
+            android:textColor="#f4a950"
+            android:textColorLink="#f4a950"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:text="Comments from other users"
+        android:textColor="#f4a950"
+        android:textSize="14sp" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</LinearLayout>
