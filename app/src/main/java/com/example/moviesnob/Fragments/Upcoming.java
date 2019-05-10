@@ -74,8 +74,8 @@ public class Upcoming extends Fragment {
     public void jsoncall( ) {
 
 
-        for(int a =1; a<=20;a++) {
-            String URL_JSON = "https://api.themoviedb.org/3/movie/upcoming?api_key=c95a6dccccd66a359cf6e9a0a7d8c665&language=en-US&page="+a;
+
+            String URL_JSON = "https://api.themoviedb.org/3/movie/upcoming?api_key=c95a6dccccd66a359cf6e9a0a7d8c665&language=en-US&page=1&region=US";
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_JSON, null, new Response.Listener<JSONObject>() {
 
@@ -122,7 +122,7 @@ public class Upcoming extends Fragment {
 
 
 //        requestQueue.add(request);
-    }
+
 
 
     public void setAdapter (List<Movie> lmovie) {
