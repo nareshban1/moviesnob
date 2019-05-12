@@ -35,9 +35,7 @@ import java.util.List;
 
 
 public class Details extends AppCompatActivity {
-    Button comment;
     private FirebaseAuth mAuth;
-
     int id;
     private String ids;
     List<Trailer> ltrailer = new ArrayList<>();
@@ -97,40 +95,25 @@ public class Details extends AppCompatActivity {
         final FirebaseUser mUser = mAuth.getCurrentUser();
 
         final Intent intent = new Intent(this, Comment.class);
-        comment = (Button) findViewById(R.id.Comm);
+        Button come= findViewById(R.id.Comm);
 
 
 
 
-        if(mUser != null) {
-            comment.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    intent.putExtra("movieid", ids);
-                    intent.putExtra("moviename", name);
-
-                    startActivity(intent);
-                }
-            });
-        }
-        else{
-
-            comment.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(),"Log In and Try Again",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getApplicationContext(), Login.class));
-                }
-            });
-        }
 
         requestQueue = Volley.newRequestQueue(this);
         jsoncall();
 
 
 
-
+        come.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("movieid", ids);
+                intent.putExtra("moviename",name);
+                startActivity(intent);
+            }
+        });
     }
 
 

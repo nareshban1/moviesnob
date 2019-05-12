@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -35,9 +37,13 @@ public class Nowplaying extends Fragment {
 
 
     View v;
+    int a= 1;
     List<Movie> lmovie = new ArrayList<>();
     private RequestQueue requestQueue;
     RecyclerView mrv;
+    Button pbtn,nbtn;
+    TextView pageno;
+    String pgn;
 
     public Nowplaying() {
         // Required empty public constructor
@@ -52,9 +58,44 @@ public class Nowplaying extends Fragment {
         getActivity().setTitle("Now Playing");
 
         mrv = (RecyclerView) v.findViewById(R.id.recyclerViewpop);
-        jsoncall();
+        pbtn = v.findViewById(R.id.prevbtn);
+        nbtn = v.findViewById(R.id.nextbtn);
+        pageno= v.findViewById(R.id.pgno);
+        pgn=Integer.toString(a);
+        pageno.setText(pgn);
+        jsoncall(a);
+        nbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                a++;
+                lmovie=new ArrayList<>();
+                jsoncall(a);
+                pgn=Integer.toString(a);
+                pageno.setText(pgn);
 
 
+
+            }
+        });
+        pbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(a<=1){
+                    pageno.setText("1");
+                }
+                else {
+                    --a;
+                    lmovie = new ArrayList<>();
+                    jsoncall(a);
+                    pgn = Integer.toString(a);
+                    pageno.setText(pgn);
+                }
+
+
+
+            }
+        });
         return v;
     }
 
@@ -71,10 +112,10 @@ public class Nowplaying extends Fragment {
 
     // maile ni ramrari bhujheko ta chaina tara yo method le json ko url bata data extract garcha ani movie class ma pathaucha.
 
-    public void jsoncall( ) {
+    public void jsoncall(int a) {
 
 
-        for(int a =1; a<=20;a++) {
+
             String URL_JSON = "https://api.themoviedb.org/3/movie/now_playing?api_key=c95a6dccccd66a359cf6e9a0a7d8c665&language=en-US&page="+a;
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_JSON, null, new Response.Listener<JSONObject>() {
@@ -122,7 +163,7 @@ public class Nowplaying extends Fragment {
 
 
 
-    }
+
 
 
     public void setAdapter (List<Movie> lmovie) {

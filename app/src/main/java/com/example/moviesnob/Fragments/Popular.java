@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,13 +36,14 @@ import java.util.List;
  */
 
 public class Popular extends Fragment {
-
     View v;
      int a= 1;
     List<Movie> lmovie = new ArrayList<>();
     private RequestQueue requestQueue;
     RecyclerView mrv;
-    Button btn;
+    Button pbtn,nbtn;
+    TextView pageno;
+    String pgn;
 
     public Popular() {
         // Required empty public constructor
@@ -56,16 +58,49 @@ public class Popular extends Fragment {
         getActivity().setTitle("Popular");
 
         mrv = (RecyclerView) v.findViewById(R.id.recyclerViewpop);
-        btn = v.findViewById(R.id.btn);
+
+        pbtn = v.findViewById(R.id.prevbtn);
+        nbtn = v.findViewById(R.id.nextbtn);
+        pageno= v.findViewById(R.id.pgno);
+        pgn=Integer.toString(a);
+        pageno.setText(pgn);
         jsoncall(a);
-        btn.setOnClickListener(new View.OnClickListener() {
+        nbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 a++;
                 lmovie=new ArrayList<>();
                 jsoncall(a);
+                pgn=Integer.toString(a);
+                pageno.setText(pgn);
+
+
+
             }
         });
+        pbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(a<=1){
+                    pageno.setText("1");
+                }
+                else {
+                    --a;
+                    lmovie = new ArrayList<>();
+                    jsoncall(a);
+                    pgn = Integer.toString(a);
+                    pageno.setText(pgn);
+                }
+
+
+
+            }
+        });
+
+
+
+
 
 
 

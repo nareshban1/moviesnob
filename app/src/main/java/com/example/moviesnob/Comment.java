@@ -1,6 +1,7 @@
 package com.example.moviesnob;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,10 +48,7 @@ public class Comment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
-        mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser mUser = mAuth.getCurrentUser();
-        final String uId = mUser.getUid();
-        final String user = mUser.getDisplayName();
+
 
 
         String moId  = getIntent().getStringExtra("movieid");
@@ -64,40 +62,51 @@ public class Comment extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Comments").child(moId);
         mDatabase.keepSynced(true);
-
-
-        progressDialog = new ProgressDialog(this);
         savebtn = findViewById(R.id.savebtn);
         com = findViewById(R.id.comment);
 
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser mUser = mAuth.getCurrentUser();
 
-        savebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String moId = getIntent().getStringExtra("movieid");
+        if(mUser!= null) {
+            savebtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String moId = getIntent().getStringExtra("movieid");
+
+                    String uId = mUser.getUid();
+                    String user = mUser.getDisplayName();
 
 
-                String comm = com.getText().toString().trim();
+                    String comm = com.getText().toString().trim();
 
-                if (TextUtils.isEmpty(comm)) {
-                    com.setError("Required");
-                    return;
+                    if (TextUtils.isEmpty(comm)) {
+                        com.setError("Required");
+                        return;
+                    }
+
+
+                    String id = mDatabase.push().getKey();
+
+                    String date = DateFormat.getDateInstance().format(new Date());
+                    Data data = new Data(comm, date, uId, moId, user);
+                    mDatabase.child(id).setValue(data);
+
+                    Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
+
                 }
+            });
+        }
+        else{
+            savebtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),"Log in And Try again", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(),Login.class));
+                }
+            });
+        }
 
-
-                progressDialog.setMessage("Processing...");
-
-                String id = mDatabase.push().getKey();
-
-                String date = DateFormat.getDateInstance().format(new Date());
-                Data data = new Data(comm, date, uId, moId,user);
-                mDatabase.child(id).setValue(data);
-
-                Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
-
-                progressDialog.dismiss();
-            }
-        });
 
         recyclerView = findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
