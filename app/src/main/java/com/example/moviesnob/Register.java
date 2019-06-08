@@ -1,8 +1,13 @@
 package com.example.moviesnob;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,6 +34,11 @@ public class Register extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
 
+    private static final String CHANNEL_ID = "Movie_Snob";
+    private static final String CHANNEL_NAME = "Movie_Snob";
+    private static final String CHANNEL_DESC = "Movie Details";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +52,12 @@ public class Register extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
         rlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +95,19 @@ public class Register extends AppCompatActivity {
         });
     }
 
+    private void displayNotification(){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("Registration Successful!")
+                .setContentText("You have successfully Registered! Welcome to the MovieSnob Family!!")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText("You have successfully Registered! Welcome to the MovieSnob Family!!"))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notifym= NotificationManagerCompat.from(this);
+        notifym.notify(1,mBuilder.build());
+    }
+
     private void callsignup(String email, String password, final String username) {
 
 
@@ -90,6 +119,7 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getApplicationContext(), Login.class));
                     progressDialog.dismiss();
+                    displayNotification();
                 } else {
                     Toast.makeText(getApplicationContext(), "Unsuccessful", Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();

@@ -1,8 +1,14 @@
 package com.example.moviesnob;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +30,11 @@ public class Login extends AppCompatActivity {
     private TextView lregister;
     private FirebaseAuth mAuth;
     private ProgressDialog progressDialog;
+
+    private static final String CHANNEL_ID = "Movie_Snob";
+    private static final String CHANNEL_NAME = "Movie_Snob";
+    private static final String CHANNEL_DESC = "Movie Details";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +46,12 @@ public class Login extends AppCompatActivity {
         login = findViewById(R.id.log_btn);
         lregister = findViewById(R.id.log_reg);
         mAuth = FirebaseAuth.getInstance();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
         lregister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +87,7 @@ public class Login extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                             progressDialog.dismiss();
+                            displayNotification();
                         }
                         else{
                             Toast.makeText(getApplicationContext(),"Unsuccessful",Toast.LENGTH_LONG).show();
@@ -79,5 +97,16 @@ public class Login extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private void displayNotification(){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("Login Successful!")
+                .setContentText("You have successfully logged in!")
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        NotificationManagerCompat notifym= NotificationManagerCompat.from(this);
+        notifym.notify(1,mBuilder.build());
     }
 }
