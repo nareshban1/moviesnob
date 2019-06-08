@@ -1,6 +1,6 @@
 package com.example.moviesnob.model;
 
-public class Data {
+public class Comments {
 
 
     private String comment;
@@ -9,9 +9,9 @@ public class Data {
     private String mid;
     private String user;
 
-    public Data(){}
+    public Comments(){}
 
-    public Data(String comment, String date, String id,String mid,String user){
+    public Comments(String comment, String date, String id, String mid, String user){
 
         this.comment=comment;
         this.mid=mid;

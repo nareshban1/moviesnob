@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.moviesnob.Fragments.HomeFragment;
+import com.example.moviesnob.Fragments.Nepali;
 import com.example.moviesnob.Fragments.Nowplaying;
 import com.example.moviesnob.Fragments.Popular;
 import com.example.moviesnob.Fragments.Upcoming;
@@ -179,10 +180,11 @@ public class MainActivity extends AppCompatActivity
             fragment = new Upcoming();
 
         }
-        else if(id == R.id.nav_Discussion){
-            //startActivity();
+        else if(id == R.id.nav_Nepali){
+            fragment = new Nepali();
 
         }
+
 
 
         if(fragment!=null){

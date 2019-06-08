@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.moviesnob.model.Data;
+import com.example.moviesnob.model.Comments;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -39,7 +39,7 @@ public class Comment extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
-    FirebaseRecyclerAdapter<Data, MyViewHolder> adapter;
+    FirebaseRecyclerAdapter<Comments, MyViewHolder> adapter;
 
 
 
@@ -89,7 +89,7 @@ public class Comment extends AppCompatActivity {
                     String id = mDatabase.push().getKey();
 
                     String date = DateFormat.getDateInstance().format(new Date());
-                    Data data = new Data(comm, date, uId, moId, user);
+                    Comments data = new Comments(comm, date, uId, moId, user);
                     mDatabase.child(id).setValue(data);
 
                     Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
@@ -123,12 +123,12 @@ public class Comment extends AppCompatActivity {
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Comments").child(moId);
 
-        FirebaseRecyclerOptions<Data> option = new FirebaseRecyclerOptions.Builder<Data>().setQuery(query, new SnapshotParser<Data>() {
+        FirebaseRecyclerOptions<Comments> option = new FirebaseRecyclerOptions.Builder<Comments>().setQuery(query, new SnapshotParser<Comments>() {
             @NonNull
             @Override
-            public Data parseSnapshot(@NonNull DataSnapshot snapshot) {
+            public Comments parseSnapshot(@NonNull DataSnapshot snapshot) {
 
-                return new Data(
+                return new Comments(
 
                         snapshot.child("comment").getValue(String.class),
                         snapshot.child("date").getValue(String.class),
@@ -140,7 +140,7 @@ public class Comment extends AppCompatActivity {
             }
         }).build();
 
-        adapter = new FirebaseRecyclerAdapter<Data, Comment.MyViewHolder>(option) {
+        adapter = new FirebaseRecyclerAdapter<Comments, Comment.MyViewHolder>(option) {
 
 
             @Override
@@ -150,7 +150,7 @@ public class Comment extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull Comment.MyViewHolder holder, int position, @NonNull Data model) {
+            protected void onBindViewHolder(@NonNull Comment.MyViewHolder holder, int position, @NonNull Comments model) {
                 holder.setData(model);
 
             }
@@ -177,7 +177,7 @@ public class Comment extends AppCompatActivity {
             usern = itemView.findViewById(R.id.username);
         }
 
-        void setData(Data data) {
+        void setData(Comments data) {
             String date = data.getDate();
             myDate.setText(date);
             String title = data.getComment();

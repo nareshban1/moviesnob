@@ -3,8 +3,7 @@
     package="com.example.moviesnob">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:allowBackup="true"
@@ -13,10 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
+        <activity android:name=".Viewdiscussions"></activity>
+        <activity
+            android:name=".DiscussionList"
+            android:label="@string/title_activity_discussion_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Discussion" />
         <activity android:name=".Comment" />
-
         <activity android:name=".Details" />
         <activity android:name=".Splash">
             <intent-filter>
