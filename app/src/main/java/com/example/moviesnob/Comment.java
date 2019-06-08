@@ -3,6 +3,7 @@ package com.example.moviesnob;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,6 +41,13 @@ public class Comment extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     FirebaseRecyclerAdapter<Comments, MyViewHolder> adapter;
+
+
+    private String Commentp;
+    private String post_key;
+    private EditText CommentUp;
+    private Button btnDelete;
+    private Button btnUpdate;
 
 
 
@@ -89,7 +97,7 @@ public class Comment extends AppCompatActivity {
                     String id = mDatabase.push().getKey();
 
                     String date = DateFormat.getDateInstance().format(new Date());
-                    Comments data = new Comments(comm, date, uId, moId, user);
+                    Comments data = new Comments(comm, date, uId, moId, user,id);
                     mDatabase.child(id).setValue(data);
 
                     Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
@@ -119,6 +127,9 @@ public class Comment extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        final FirebaseUser mUser = mAuth.getCurrentUser();
+        final String uId = mUser.getUid();
+        final String user = mUser.getDisplayName();
         String moId = getIntent().getStringExtra("movieid");
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Comments").child(moId);
@@ -134,7 +145,9 @@ public class Comment extends AppCompatActivity {
                         snapshot.child("date").getValue(String.class),
                         snapshot.child("id").getValue(String.class),
                         snapshot.child("mid").getValue(String.class),
-                        snapshot.child("user").getValue(String.class)
+                        snapshot.child("user").getValue(String.class),
+                        snapshot.child("postid").getValue(String.class)
+
 
                 );
             }
@@ -150,10 +163,24 @@ public class Comment extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull Comment.MyViewHolder holder, int position, @NonNull Comments model) {
+            protected void onBindViewHolder(@NonNull Comment.MyViewHolder holder, final int position, @NonNull final Comments model) {
                 holder.setData(model);
+                if(uId== model.getId()) {
+                    holder.myView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            post_key = getRef(position).getKey();
+                            Commentp = model.getComment();
+
+                            updateData();
+                        }
+                    });
+                }
+
 
             }
+
         };
         adapter.startListening();
         recyclerView.setAdapter(adapter);
@@ -197,6 +224,57 @@ public class Comment extends AppCompatActivity {
         if(adapter!=null) {
             adapter.stopListening();
         }
+    }
+
+    public void updateData(){
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(Comment.this);
+        LayoutInflater inflater = LayoutInflater.from(Comment.this);
+        View myview = inflater.inflate(R.layout.updatecom,null);
+        mydialog.setView(myview);
+
+        final AlertDialog dialog = mydialog.create();
+        CommentUp = myview.findViewById(R.id.udcomment);
+
+        CommentUp.setText(Commentp);
+        CommentUp.setSelection(Commentp.length());
+
+
+
+        btnDelete = myview.findViewById(R.id.delete);
+        btnUpdate = myview.findViewById(R.id.update);
+        final String mId = getIntent().getStringExtra("movieid");
+
+        final FirebaseUser mUser = mAuth.getCurrentUser();
+        final String uId = mUser.getUid();
+        final String user = mUser.getDisplayName();
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Commentp = CommentUp.getText().toString().trim();
+                String mDate = DateFormat.getDateInstance().format(new Date());
+                Comments data = new Comments(Commentp,mDate,uId,mId, user,post_key);
+
+                mDatabase.child(post_key).setValue(data);
+                dialog.dismiss();
+            }
+        });
+
+        // for deleting the data from firebase
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mDatabase.child(post_key).removeValue();
+
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
+
+
     }
 }
 

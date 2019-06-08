@@ -7,17 +7,18 @@ public class Comments {
     private String date;
     private  String id;
     private String mid;
-    private String user;
+    private String user,postid;
 
     public Comments(){}
 
-    public Comments(String comment, String date, String id, String mid, String user){
+    public Comments(String comment, String date, String id, String mid, String user,String postid){
 
         this.comment=comment;
         this.mid=mid;
         this.date=date;
         this.id=id;
         this.user=user;
+        this.postid=postid;
 
     }
     public String getComment() {
@@ -58,5 +59,13 @@ public class Comments {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getPostid() {
+        return postid;
+    }
+
+    public void setPostid(String postid) {
+        this.postid = postid;
     }
 }

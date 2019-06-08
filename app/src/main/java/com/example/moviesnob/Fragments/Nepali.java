@@ -55,7 +55,7 @@ public class Nepali extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v =  inflater.inflate(R.layout.content_main, container, false);
-        getActivity().setTitle("Upcoming");
+        getActivity().setTitle("Nepali Movies");
 
         mrv = (RecyclerView) v.findViewById(R.id.recyclerViewpop);
 
