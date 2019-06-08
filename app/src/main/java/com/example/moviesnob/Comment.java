@@ -128,8 +128,7 @@ public class Comment extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         final FirebaseUser mUser = mAuth.getCurrentUser();
-        final String uId = mUser.getUid();
-        final String user = mUser.getDisplayName();
+
         String moId = getIntent().getStringExtra("movieid");
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Comments").child(moId);
@@ -165,18 +164,22 @@ public class Comment extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull Comment.MyViewHolder holder, final int position, @NonNull final Comments model) {
                 holder.setData(model);
-                if(uId== model.getId()) {
-                    holder.myView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
 
-                            post_key = getRef(position).getKey();
-                            Commentp = model.getComment();
+                if (mUser != null) {
+                    if(mUser.getUid()== model.getId()) {
+                        holder.myView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                            updateData();
-                        }
-                    });
+                                post_key = getRef(position).getKey();
+                                Commentp = model.getComment();
+
+                                updateData();
+                            }
+                        });
+                    }
                 }
+
 
 
             }
