@@ -165,19 +165,22 @@ public class Comment extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull Comment.MyViewHolder holder, final int position, @NonNull final Comments model) {
                 holder.setData(model);
 
-                if (mUser != null) {
-                    if(mUser.getUid()== model.getId()) {
+                if (mUser!= null) {
+
                         holder.myView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
 
-                                post_key = getRef(position).getKey();
-                                Commentp = model.getComment();
+                                @Override
+                                public void onClick (View view){
+                                    if(mUser.getUid()== model.getId())
+                                        post_key = getRef(position).getKey();
+                                        Commentp = model.getComment();
+                                        updateData();
+                                    {
 
-                                updateData();
+                                }
                             }
                         });
-                    }
+
                 }
 
 
