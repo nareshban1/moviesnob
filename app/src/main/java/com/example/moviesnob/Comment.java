@@ -17,9 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.moviesnob.model.Comments;
-
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.database.SnapshotParser;
@@ -29,7 +27,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -41,8 +38,6 @@ public class Comment extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     FirebaseRecyclerAdapter<Comments, MyViewHolder> adapter;
-
-
     private String Commentp;
     private String ids;
     private String post_key;
@@ -73,7 +68,6 @@ public class Comment extends AppCompatActivity {
         mDatabase.keepSynced(true);
         savebtn = findViewById(R.id.savebtn);
         com = findViewById(R.id.comment);
-
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser mUser = mAuth.getCurrentUser();
 
@@ -96,11 +90,9 @@ public class Comment extends AppCompatActivity {
 
 
                     String id = mDatabase.push().getKey();
-
                     String date = DateFormat.getDateInstance().format(new Date());
                     Comments data = new Comments(comm, date, uId, moId, user,id);
                     mDatabase.child(id).setValue(data);
-
                     Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
 
                 }
@@ -177,7 +169,12 @@ public class Comment extends AppCompatActivity {
                                 ids = model.getId();
                                 post_key = getRef(position).getKey();
                                 Commentp = model.getComment();
-                                updateData();
+                                if(ids == mUser.getUid()) {
+                                    updateData();
+                                }
+                                else{
+                                    Toast.makeText(getApplicationContext(),"You cannot edit ", Toast.LENGTH_LONG).show();
+                                }
 
 
                             }
@@ -259,18 +256,22 @@ public class Comment extends AppCompatActivity {
             final String mId = getIntent().getStringExtra("movieid");
             final String uId = ids;
             final String user = mUser.getDisplayName();
-            if(uId == mUser.getUid()) {
+
 
                 //update comment
                 btnUpdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         Commentp = CommentUp.getText().toString().trim();
+                        if (TextUtils.isEmpty(Commentp)) {
+                            CommentUp.setError("Required");
+                            return;
+                        }
                         String mDate = DateFormat.getDateInstance().format(new Date());
                         Comments data = new Comments(Commentp, mDate, uId, mId, user, post_key);
 
                         mDatabase.child(post_key).setValue(data);
+                        Toast.makeText(getApplicationContext(),"Updated", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }
                 });
@@ -281,11 +282,12 @@ public class Comment extends AppCompatActivity {
                     public void onClick(View view) {
 
                         mDatabase.child(post_key).removeValue();
+                        Toast.makeText(getApplicationContext(),"Deleted", Toast.LENGTH_LONG).show();
 
                         dialog.dismiss();
                     }
                 });
-            }
+
 
             dialog.show();
 
