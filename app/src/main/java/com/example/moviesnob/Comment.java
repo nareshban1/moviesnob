@@ -44,6 +44,7 @@ public class Comment extends AppCompatActivity {
 
 
     private String Commentp;
+    private String ids;
     private String post_key;
     private EditText CommentUp;
     private Button btnDelete;
@@ -166,20 +167,24 @@ public class Comment extends AppCompatActivity {
                 holder.setData(model);
 
                 if (mUser!= null) {
+                    final String uids = mUser.getUid();
 
                         holder.myView.setOnClickListener(new View.OnClickListener() {
 
-                                @Override
-                                public void onClick (View view){
-                                    if(mUser.getUid()== model.getId())
-                                        post_key = getRef(position).getKey();
-                                        Commentp = model.getComment();
-                                        updateData();
-                                    {
+                            @Override
+                            public void onClick(View view) {
 
-                                }
+                                ids = model.getId();
+                                post_key = getRef(position).getKey();
+
+
+                                    Commentp = model.getComment();
+                                    updateData();
+
+
                             }
                         });
+
 
                 }
 
@@ -232,55 +237,60 @@ public class Comment extends AppCompatActivity {
         }
     }
 
-    public void updateData(){
-        AlertDialog.Builder mydialog = new AlertDialog.Builder(Comment.this);
-        LayoutInflater inflater = LayoutInflater.from(Comment.this);
-        View myview = inflater.inflate(R.layout.updatecom,null);
-        mydialog.setView(myview);
-
-        final AlertDialog dialog = mydialog.create();
-        CommentUp = myview.findViewById(R.id.udcomment);
-
-        CommentUp.setText(Commentp);
-        CommentUp.setSelection(Commentp.length());
-
-
-
-        btnDelete = myview.findViewById(R.id.delete);
-        btnUpdate = myview.findViewById(R.id.update);
-        final String mId = getIntent().getStringExtra("movieid");
+    public void updateData() {
 
         final FirebaseUser mUser = mAuth.getCurrentUser();
-        final String uId = mUser.getUid();
-        final String user = mUser.getDisplayName();
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Commentp = CommentUp.getText().toString().trim();
-                String mDate = DateFormat.getDateInstance().format(new Date());
-                Comments data = new Comments(Commentp,mDate,uId,mId, user,post_key);
+            AlertDialog.Builder mydialog = new AlertDialog.Builder(Comment.this);
+            LayoutInflater inflater = LayoutInflater.from(Comment.this);
+            View myview = inflater.inflate(R.layout.updatecom, null);
 
-                mDatabase.child(post_key).setValue(data);
-                dialog.dismiss();
-            }
-        });
-
-        // for deleting the data from firebase
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                mDatabase.child(post_key).removeValue();
-
-                dialog.dismiss();
-            }
-        });
+            mydialog.setView(myview);
 
 
-        dialog.show();
+            final AlertDialog dialog = mydialog.create();
+
+            CommentUp = myview.findViewById(R.id.udcomment);
+
+            CommentUp.setText(Commentp);
+            CommentUp.setSelection(Commentp.length());
+
+
+            btnDelete = myview.findViewById(R.id.delete);
+            btnUpdate = myview.findViewById(R.id.update);
+            final String mId = getIntent().getStringExtra("movieid");
+            final String uId = ids;
+            final String user = mUser.getDisplayName();
+
+            btnUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Commentp = CommentUp.getText().toString().trim();
+                    String mDate = DateFormat.getDateInstance().format(new Date());
+                    Comments data = new Comments(Commentp, mDate, uId, mId, user, post_key);
+
+                    mDatabase.child(post_key).setValue(data);
+                    dialog.dismiss();
+                }
+            });
+
+            // for deleting the data from firebase
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    mDatabase.child(post_key).removeValue();
+
+                    dialog.dismiss();
+                }
+            });
+
+
+            dialog.show();
 
 
     }
+
 }
 
