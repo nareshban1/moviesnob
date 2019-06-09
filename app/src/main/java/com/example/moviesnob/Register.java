@@ -82,11 +82,13 @@ public class Register extends AppCompatActivity {
                 }
                 if (TextUtils.isEmpty(mPassword)) {
                     pass.setError("Required");
+                    return;
                 }
                 if (TextUtils.isEmpty(mUsername)) {
                     uname.setError("Required");
+                    return;
                 }
-                progressDialog.setMessage("Processing...");
+                progressDialog.setMessage("Registering new user..");
                 progressDialog.show();
                 callsignup(mEmail, mPassword, mUsername);
             }
@@ -116,12 +118,12 @@ public class Register extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     userProfile(username);
-                    Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Registration Successful!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getApplicationContext(), Login.class));
                     progressDialog.dismiss();
                     displayNotification();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Unsuccessful", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Registration Unsuccessful", Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
                 }
             }

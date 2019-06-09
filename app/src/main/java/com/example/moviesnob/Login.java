@@ -66,15 +66,20 @@ public class Login extends AppCompatActivity {
                 String mEmail=email.getText().toString().trim();
                 String mPassword= pass.getText().toString().trim();
 
+
+
                 if(TextUtils.isEmpty(mEmail)){
                     email.setError("Required");
                     return;
                 }
+
                 if(TextUtils.isEmpty(mPassword)){
                     pass.setError("Required");
+                    return;
                 }
 
-                progressDialog.setMessage("Processing...");
+
+                progressDialog.setMessage("Logging In...");
                 progressDialog.show();
 
                 mAuth.signInWithEmailAndPassword(mEmail,mPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -82,7 +87,7 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             finish();
-                            Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(Login.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -90,7 +95,7 @@ public class Login extends AppCompatActivity {
                             displayNotification();
                         }
                         else{
-                            Toast.makeText(getApplicationContext(),"Unsuccessful",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Please enter valid username and password and try again",Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
                         }
                     }
