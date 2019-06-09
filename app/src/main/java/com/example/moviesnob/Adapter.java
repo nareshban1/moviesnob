@@ -28,6 +28,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
         this.mContext = mContext;
         this.lmovie= lmovie;
+        //is case of no image is found
         options = new RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.logo)
@@ -46,8 +47,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             public void onClick(View v) {
 
                 Intent i = new Intent(mContext, Details.class);
-                ;
-                // sending data process
+
+                // sending data to details page from movie model
                 i.putExtra("movie_name",lmovie.get(viewHolder.getAdapterPosition()).getTitle());
                 i.putExtra("description",lmovie.get(viewHolder.getAdapterPosition()).getDescription());
                 i.putExtra("rating",lmovie.get(viewHolder.getAdapterPosition()).getRating());

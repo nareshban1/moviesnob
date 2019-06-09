@@ -96,7 +96,7 @@ public class Register extends AppCompatActivity {
 
         });
     }
-
+    //registration successful notification
     private void displayNotification(){
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
@@ -112,7 +112,7 @@ public class Register extends AppCompatActivity {
 
     private void callsignup(String email, String password, final String username) {
 
-
+        //registering user
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -146,7 +146,7 @@ public class Register extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Log.d("TESTING", "User profile updated.");
+                                Log.d("", "User profile updated.");
                             }
                         }
                     });

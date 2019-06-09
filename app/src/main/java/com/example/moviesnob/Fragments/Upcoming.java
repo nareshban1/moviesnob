@@ -30,9 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class Upcoming extends Fragment {
 
 
@@ -112,8 +110,7 @@ public class Upcoming extends Fragment {
 
     }
 
-    // maile ni ramrari bhujheko ta chaina tara yo method le json ko url bata data extract garcha ani movie class ma pathaucha.
-
+    // upcoming movies movies
     public void jsoncall( int a) {
 
 
@@ -126,10 +123,10 @@ public class Upcoming extends Fragment {
                 public void onResponse(JSONObject response) {
 
                     try {
-                        JSONArray jsonArray = response.getJSONArray("results");
+                        JSONArray jsonArray = response.getJSONArray("results");// array name is results in the link
                         for (int i = 0; i < jsonArray.length(); i++) {
 
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);//getting movie objects
                             Movie movie = new Movie();
                             movie.setId(jsonObject.getInt("id"));
                             movie.setTitle(jsonObject.getString("title"));
@@ -146,9 +143,6 @@ public class Upcoming extends Fragment {
 
                     setAdapter(lmovie);
 
-                    //Toast.makeText(MainActivity.this,"Size of Lists "+String.valueOf(lmovie.size()),Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(MainActivity.this,lmovie.get(1).toString(),Toast.LENGTH_SHORT).show();
-
                 }
 
             }, new Response.ErrorListener() {
@@ -163,8 +157,6 @@ public class Upcoming extends Fragment {
 
         }
 
-
-//        requestQueue.add(request);
 
 
 

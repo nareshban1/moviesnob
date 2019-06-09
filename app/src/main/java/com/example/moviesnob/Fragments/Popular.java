@@ -31,9 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 
 public class Popular extends Fragment {
     View v;
@@ -119,12 +116,11 @@ public class Popular extends Fragment {
 
     }
 
-    // maile ni ramrari bhujheko ta chaina tara yo method le json ko url bata data extract garcha ani movie class ma pathaucha.
-
+    // Popular movies
     public void jsoncall( int a ) {
 
 
-//        for(int a = 1; a<=20;a++) {
+
             String URL_JSON = "https://api.themoviedb.org/3/movie/popular?api_key=c95a6dccccd66a359cf6e9a0a7d8c665&language=en-US&page="+a;
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_JSON, null, new Response.Listener<JSONObject>() {
@@ -153,8 +149,6 @@ public class Popular extends Fragment {
 
                     setAdapter(lmovie);
 
-                    //Toast.makeText(MainActivity.this,"Size of Lists "+String.valueOf(lmovie.size()),Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(MainActivity.this,lmovie.get(1).toString(),Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -171,8 +165,7 @@ public class Popular extends Fragment {
         }
 
 
-//        requestQueue.add(request);
-   // }
+
 
 
     public void setAdapter (List<Movie> lmovie) {

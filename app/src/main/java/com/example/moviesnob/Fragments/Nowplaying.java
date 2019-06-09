@@ -30,9 +30,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class Nowplaying extends Fragment {
 
 
@@ -110,7 +108,7 @@ public class Nowplaying extends Fragment {
 
     }
 
-    // maile ni ramrari bhujheko ta chaina tara yo method le json ko url bata data extract garcha ani movie class ma pathaucha.
+    // now playing movies
 
     public void jsoncall(int a) {
 
@@ -144,8 +142,7 @@ public class Nowplaying extends Fragment {
 
                     setAdapter(lmovie);
 
-                    //Toast.makeText(getContext() ,"Movies Loaded "+String.valueOf(lmovie.size()),Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(MainActivity.this,lmovie.get(1).toString(),Toast.LENGTH_SHORT).show();
+
 
                 }
 

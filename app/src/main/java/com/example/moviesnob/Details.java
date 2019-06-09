@@ -10,10 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,11 +22,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.moviesnob.model.Trailer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +43,7 @@ public class Details extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
 
-
+        // value from adapter
         final String name  = getIntent().getExtras().getString("movie_name");
         String description = getIntent().getExtras().getString("description");
         String rating = getIntent().getExtras().getString("rating") ;
@@ -98,14 +93,10 @@ public class Details extends AppCompatActivity {
         Button come= findViewById(R.id.Comm);
 
 
-
-
-
         requestQueue = Volley.newRequestQueue(this);
         jsoncall();
 
-
-
+        // sending movie id and name to comments page
         come.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,10 +107,8 @@ public class Details extends AppCompatActivity {
         });
     }
 
-
+    //getting trailers of a particulat movie using movie id
      public void jsoncall( ) {
-
-
 
             String URL_JSON = "https://api.themoviedb.org/3/movie/"+ids+"/videos?api_key=c95a6dccccd66a359cf6e9a0a7d8c665&language=en-US";
 
@@ -145,8 +134,7 @@ public class Details extends AppCompatActivity {
 
                     setAdapter(ltrailer);
 
-                    //Toast.makeText(getContext() ,"Movies Loaded "+String.valueOf(lmovie.size()),Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(MainActivity.this,lmovie.get(1).toString(),Toast.LENGTH_SHORT).show();
+
 
                 }
 
@@ -166,7 +154,7 @@ public class Details extends AppCompatActivity {
 
 
 
-
+    //recycler view adapter
     public void setAdapter (List<Trailer> ltrailer) {
 
         Traileradapter myAdapter = new Traileradapter(this, ltrailer);

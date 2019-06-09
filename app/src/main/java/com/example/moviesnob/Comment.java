@@ -70,7 +70,7 @@ public class Comment extends AppCompatActivity {
         com = findViewById(R.id.comment);
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser mUser = mAuth.getCurrentUser();
-
+//checking if user is logged in for commenting
         if(mUser!= null) {
             savebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,7 +130,7 @@ public class Comment extends AppCompatActivity {
             @NonNull
             @Override
             public Comments parseSnapshot(@NonNull DataSnapshot snapshot) {
-
+//getting comments from firebase
                 return new Comments(
 
                         snapshot.child("comment").getValue(String.class),

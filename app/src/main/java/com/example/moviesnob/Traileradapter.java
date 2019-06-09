@@ -46,7 +46,7 @@ public class Traileradapter extends RecyclerView.Adapter<Traileradapter.MyViewHo
         viewHolder.view_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // getting trailer key and using that key to gat videos
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" +ltrailer.get(viewHolder.getAdapterPosition()).getKey()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setPackage("com.google.android.youtube");
@@ -56,9 +56,6 @@ public class Traileradapter extends RecyclerView.Adapter<Traileradapter.MyViewHo
 
             }
         });
-
-
-
 
 
         return viewHolder;
