@@ -167,7 +167,7 @@ public class Comment extends AppCompatActivity {
                 holder.setData(model);
 
                 if (mUser!= null) {
-                    final String uids = mUser.getUid();
+
 
                         holder.myView.setOnClickListener(new View.OnClickListener() {
 
@@ -176,10 +176,8 @@ public class Comment extends AppCompatActivity {
 
                                 ids = model.getId();
                                 post_key = getRef(position).getKey();
-
-
-                                    Commentp = model.getComment();
-                                    updateData();
+                                Commentp = model.getComment();
+                                updateData();
 
 
                             }
@@ -261,31 +259,33 @@ public class Comment extends AppCompatActivity {
             final String mId = getIntent().getStringExtra("movieid");
             final String uId = ids;
             final String user = mUser.getDisplayName();
+            if(uId == mUser.getUid()) {
 
-            btnUpdate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+                //update comment
+                btnUpdate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                    Commentp = CommentUp.getText().toString().trim();
-                    String mDate = DateFormat.getDateInstance().format(new Date());
-                    Comments data = new Comments(Commentp, mDate, uId, mId, user, post_key);
+                        Commentp = CommentUp.getText().toString().trim();
+                        String mDate = DateFormat.getDateInstance().format(new Date());
+                        Comments data = new Comments(Commentp, mDate, uId, mId, user, post_key);
 
-                    mDatabase.child(post_key).setValue(data);
-                    dialog.dismiss();
-                }
-            });
+                        mDatabase.child(post_key).setValue(data);
+                        dialog.dismiss();
+                    }
+                });
 
-            // for deleting the data from firebase
-            btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+                // Delete comment
+                btnDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                    mDatabase.child(post_key).removeValue();
+                        mDatabase.child(post_key).removeValue();
 
-                    dialog.dismiss();
-                }
-            });
-
+                        dialog.dismiss();
+                    }
+                });
+            }
 
             dialog.show();
 
