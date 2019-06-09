@@ -88,7 +88,7 @@ public class Register extends AppCompatActivity {
                     uname.setError("Required");
                     return;
                 }
-                progressDialog.setMessage("Registering new user..");
+                progressDialog.setMessage("Registering new user...");
                 progressDialog.show();
                 callsignup(mEmail, mPassword, mUsername);
             }
@@ -123,7 +123,7 @@ public class Register extends AppCompatActivity {
                     progressDialog.dismiss();
                     displayNotification();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Registration Unsuccessful", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Registration Unsuccessful. Try Again", Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
                 }
             }
